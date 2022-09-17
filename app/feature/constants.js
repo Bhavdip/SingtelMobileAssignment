@@ -1,0 +1,2 @@
+const CARD_PAIRS_VALUE = 6;
+export { CARD_PAIRS_VALUE };

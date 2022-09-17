@@ -1,11 +1,12 @@
-import React, {Component} from 'react';
-import {StyleSheet, Platform, View, Text} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Platform, View } from 'react-native';
+import CardGame from './feature/card-game';
 
 class SingtelApplication extends Component {
   render() {
     return (
       <View style={styles.sectionContainer}>
-        <Text>Singtel Application</Text>
+        <CardGame />
       </View>
     );
   }
@@ -14,7 +15,7 @@ class SingtelApplication extends Component {
 const styles = StyleSheet.create({
   sectionContainer: {
     flex: 1,
-    marginTop: Platform.OS === 'ios' ? 38 : 0,
-  },
+    marginTop: Platform.OS === 'ios' ? 38 : 0
+  }
 });
 export default SingtelApplication;
