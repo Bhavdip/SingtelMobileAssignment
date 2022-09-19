@@ -1,7 +1,8 @@
 import React, { FlatList, StyleSheet, View } from 'react-native';
 import { Component } from 'react';
+import { CARD_PAIRS_VALUE } from '@constants';
+import { Colors } from '@theme/colors';
 import CardView from '../../components/cardview';
-import { CARD_PAIRS_VALUE } from '../../helper/constants';
 
 class CardGame extends Component {
   constructor(props) {
@@ -92,7 +93,7 @@ class CardGame extends Component {
 const styles = StyleSheet.create({
   sectionContainer: {
     flex: 1,
-    backgroundColor: '#403D42'
+    backgroundColor: Colors.WINDOW_BACKGROUND_COLOR
   }
 });
 

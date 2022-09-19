@@ -1,5 +1,8 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { scale } from '@helper';
+import { Colors } from '@theme/colors';
+import { Spacing } from '@theme/spacing';
 import CardFlip from './cardflip';
 
 const window = Dimensions.get('window');
@@ -37,13 +40,13 @@ const CardView = props => {
 const styles = StyleSheet.create({
   cardFlipContainer: {
     flex: 1,
+    margin: Spacing.x8,
     height: CARD_HEIGHT,
-    width: CARD_WIDTH,
-    margin: 8
+    width: CARD_WIDTH
   },
   flipCardStyle: {
-    borderWidth: 5,
-    borderRadius: 12,
+    borderWidth: scale(5),
+    borderRadius: scale(12),
     height: CARD_HEIGHT,
     width: CARD_WIDTH,
     borderColor: 'white',
@@ -51,10 +54,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   frontCardStyle: {
-    backgroundColor: '#1DA1F3'
+    backgroundColor: Colors.FRONT_SIDE_COLOR
   },
   backCardStyle: {
-    backgroundColor: 'white'
+    backgroundColor: Colors.BACK_SIDE_COLOR
   }
 });
 export default CardView;

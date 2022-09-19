@@ -42,6 +42,10 @@
             "single",
             { "avoidEscape": true, "allowTemplateLiterals": false }
         ],
+        "import/no-unresolved": [
+            2,
+            { "ignore": ["@constants", "@helper", "@theme", "@util"] }
+        ],
         "jsx-quotes": ["error", "prefer-double"],
         "camelcase": "off",
         "no-use-before-define": "off",
