@@ -1,9 +1,11 @@
-import React, { Alert, FlatList, StyleSheet, View } from 'react-native';
+import React, { Alert, FlatList, StyleSheet, View, Text } from 'react-native';
 import { Component } from 'react';
 import { Colors } from '@theme/colors';
 import { AppConstants } from '@constants';
+import { sprintf } from '@helper/utilites';
+import { Spacing } from '@theme';
 import CardView from '../../components/cardview';
-import { sprintf } from '../../helper/utilites';
+import HeaderSection from '../../components/header-section';
 
 class CardGame extends Component {
   constructor(props) {
@@ -17,15 +19,19 @@ class CardGame extends Component {
       prevCardId: -1
     };
   }
+
   restartGame = () => {
-    this.setState({
-      resolvedCards: Array(AppConstants.CARD_PAIRS_VALUE * 2).fill(false),
-      shuffledCard: [],
-      clickCount: 1,
-      isBlocked: false,
-      prevSelectedCard: -1,
-      prevCardId: -1
-    });
+    this.setState({ resolvedCards: Array(AppConstants.CARD_PAIRS_VALUE * 2).fill(false) });
+    setTimeout(() => {
+      this.setState({
+        shuffledCard: [],
+        clickCount: 1,
+        isBlocked: false,
+        prevSelectedCard: -1,
+        prevCardId: -1
+      });
+      this.generateParisOfNum();
+    }, 1000);
   };
 
   getRandomIntInclusive = (min, max) => {
@@ -111,6 +117,7 @@ class CardGame extends Component {
         <FlatList
           numColumns={AppConstants.GAMEPAD_COLUMNS}
           data={shuffledCard}
+          contentContainerStyle={{ marginHorizontal: Spacing.x8 }}
           renderItem={this.renderGameCads}
           extraData={this.state}
         />
@@ -136,7 +143,6 @@ class CardGame extends Component {
           styles: 'cancel',
           onPress: () => {
             this.restartGame();
-            this.generateParisOfNum();
           }
         }
       ];
@@ -149,8 +155,18 @@ class CardGame extends Component {
     this.displayGameOverMsg();
   }
 
+  onRestartGame = () => {
+    this.restartGame();
+    this.generateParisOfNum();
+  };
+
   render() {
-    return <View style={styles.sectionContainer}>{this.renderGamePods()}</View>;
+    return (
+      <View style={styles.sectionContainer}>
+        <HeaderSection onPress={() => this.onRestartGame()} />
+        {this.renderGamePods()}
+      </View>
+    );
   }
 
   handleClick = cardData => {
