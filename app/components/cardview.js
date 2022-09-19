@@ -20,13 +20,13 @@ const CardView = props => {
         activeOpacity={1}
         style={[styles.flipCardStyle, styles.frontCardStyle]}
         onPress={() => cardFlip.current.flip()}>
-        <Text style={{ fontSize: 42, color: 'white' }}>{'\u003F'}</Text>
+        <Text style={styles.questionTextStyle}>{'\u003F'}</Text>
       </TouchableOpacity>
       <TouchableOpacity
         activeOpacity={1}
         style={[styles.flipCardStyle, styles.backCardStyle]}
         onPress={() => cardFlip.current.flip()}>
-        <Text style={styles.label}>{`Back Side:${props.cardNumber}`}</Text>
+        <Text style={styles.cardNumberTextStyle}>{`${props.cardNumber}`}</Text>
       </TouchableOpacity>
     </CardFlip>
   );
@@ -51,6 +51,13 @@ const styles = StyleSheet.create({
   },
   backCardStyle: {
     backgroundColor: Colors.BACK_SIDE_COLOR
+  },
+  questionTextStyle: {
+    fontSize: 42,
+    color: Colors.Shades.COLOR_WHITE
+  },
+  cardNumberTextStyle: {
+    fontSize: 22
   }
 });
 export default CardView;
