@@ -2,8 +2,8 @@ import React, { useRef } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { scale } from '@helper';
 import { Colors } from '@theme/colors';
-import { Spacing } from '@theme/spacing';
 import { getCardMeasure } from '@helper/utilites';
+import { AppConstants } from '@constants';
 import CardFlip from './cardflip';
 
 const CardView = props => {
@@ -12,8 +12,8 @@ const CardView = props => {
   return (
     <CardFlip
       ref={cardFlip}
-      flipZoom={0.09}
-      duration={600}
+      flipZoom={AppConstants.FLIP_ZOOM}
+      duration={AppConstants.FLIP_ANIM_DURATION}
       flipDirection="y"
       style={styles.cardFlipContainer}>
       <TouchableOpacity
@@ -35,12 +35,10 @@ const CardView = props => {
 const styles = StyleSheet.create({
   cardFlipContainer: {
     flex: 1,
-    margin: Spacing.x4,
-    height: getCardMeasure().CARD_HEIGHT,
-    width: getCardMeasure().CARD_WIDTH
+    height: getCardMeasure().CONTAINER_HEIGHT
   },
   flipCardStyle: {
-    borderWidth: scale(5),
+    borderWidth: scale(4),
     borderRadius: scale(12),
     height: getCardMeasure().CARD_HEIGHT,
     width: getCardMeasure().CARD_WIDTH,

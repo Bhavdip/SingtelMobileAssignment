@@ -73,7 +73,7 @@ class CardGame extends Component {
   }
 
   renderGameCads = ({ item, index }) => {
-    console.log(`element${JSON.stringify(item)}`);
+    // console.log(`element${JSON.stringify(item)}`);
     return <CardView key={`cardId_${index}`} cardNumber={item} />;
   };
 
