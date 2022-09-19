@@ -1,7 +1,7 @@
 import React, { FlatList, StyleSheet, View } from 'react-native';
 import { Component } from 'react';
 import CardView from '../../components/CardView';
-import { CARD_PAIRS_VALUE } from '../constants';
+import { CARD_PAIRS_VALUE } from '../../helper/constants';
 
 class CardGame extends Component {
   constructor(props) {
@@ -72,21 +72,14 @@ class CardGame extends Component {
   }
 
   renderGameCads = ({ item, index }) => {
-    console.log('element' + JSON.stringify(item));
+    console.log(`element${JSON.stringify(item)}`);
     return <CardView key={`cardId_${index}`} cardNumber={item} />;
   };
 
   renderGamePods = () => {
     const { shuffledCard } = this.state;
     if (shuffledCard && shuffledCard.length > 0) {
-      return (
-        <FlatList
-          numColumns={3}
-          data={shuffledCard}
-          contentContainerStyle={{ paddingHorizontal: 8 }}
-          renderItem={this.renderGameCads}
-        />
-      );
+      return <FlatList numColumns={3} data={shuffledCard} renderItem={this.renderGameCads} />;
     }
     return null;
   };
