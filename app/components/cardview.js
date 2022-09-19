@@ -1,15 +1,10 @@
 import React, { useRef } from 'react';
-import { StyleSheet, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { scale } from '@helper';
 import { Colors } from '@theme/colors';
 import { Spacing } from '@theme/spacing';
+import { getCardMeasure } from '@helper/utilites';
 import CardFlip from './cardflip';
-
-const window = Dimensions.get('window');
-const CARD_WIDTH = window.width * 0.3;
-const CARD_ASPECT_RATIO = (302 / 207) * 0.45;
-const CARD_HEIGHT = CARD_WIDTH / CARD_ASPECT_RATIO;
-// const CARD_HEIGHT = 40;
 
 const CardView = props => {
   // Creating a ref object using useRef hook
@@ -40,18 +35,18 @@ const CardView = props => {
 const styles = StyleSheet.create({
   cardFlipContainer: {
     flex: 1,
-    margin: Spacing.x8,
-    height: CARD_HEIGHT,
-    width: CARD_WIDTH
+    margin: Spacing.x4,
+    height: getCardMeasure().CARD_HEIGHT,
+    width: getCardMeasure().CARD_WIDTH
   },
   flipCardStyle: {
     borderWidth: scale(5),
     borderRadius: scale(12),
-    height: CARD_HEIGHT,
-    width: CARD_WIDTH,
-    borderColor: 'white',
+    height: getCardMeasure().CARD_HEIGHT,
+    width: getCardMeasure().CARD_WIDTH,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    borderColor: Colors.Shades.COLOR_WHITE
   },
   frontCardStyle: {
     backgroundColor: Colors.FRONT_SIDE_COLOR

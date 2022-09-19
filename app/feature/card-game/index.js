@@ -1,7 +1,7 @@
 import React, { FlatList, StyleSheet, View } from 'react-native';
 import { Component } from 'react';
-import { CARD_PAIRS_VALUE } from '@constants';
 import { Colors } from '@theme/colors';
+import { AppConstants } from '@constants';
 import CardView from '../../components/cardview';
 
 class CardGame extends Component {
@@ -49,7 +49,7 @@ class CardGame extends Component {
   generateNumbers = () => {
     const array1 = [];
     let currentIndex = 0;
-    while (currentIndex < CARD_PAIRS_VALUE) {
+    while (currentIndex < AppConstants.CARD_PAIRS_VALUE) {
       const item = this.getRandomIntInclusive(1, 100);
       if (array1.indexOf(item) === -1) {
         array1.push(item);
@@ -80,7 +80,13 @@ class CardGame extends Component {
   renderGamePods = () => {
     const { shuffledCard } = this.state;
     if (shuffledCard && shuffledCard.length > 0) {
-      return <FlatList numColumns={3} data={shuffledCard} renderItem={this.renderGameCads} />;
+      return (
+        <FlatList
+          numColumns={AppConstants.GAMEPAD_COLUMNS}
+          data={shuffledCard}
+          renderItem={this.renderGameCads}
+        />
+      );
     }
     return null;
   };
