@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { StyleSheet, Text, Dimensions, TouchableOpacity } from 'react-native';
-import CardFlip from './CardFlip';
+import CardFlip from './cardflip';
 
 const window = Dimensions.get('window');
 const CARD_WIDTH = window.width * 0.3;

@@ -1,6 +1,6 @@
 import React, { FlatList, StyleSheet, View } from 'react-native';
 import { Component } from 'react';
-import CardView from '../../components/CardView';
+import CardView from '../../components/cardview';
 import { CARD_PAIRS_VALUE } from '../../helper/constants';
 
 class CardGame extends Component {
