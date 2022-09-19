@@ -16,3 +16,9 @@ export function getCardMeasure() {
     CONTAINER_HEIGHT
   };
 }
+
+export function sprintf(str, values) {
+  return str.replace(/%s/g, () => {
+    return values.shift();
+  });
+}

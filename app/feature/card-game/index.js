@@ -1,8 +1,9 @@
-import React, { FlatList, StyleSheet, View } from 'react-native';
+import React, { Alert, FlatList, StyleSheet, View } from 'react-native';
 import { Component } from 'react';
 import { Colors } from '@theme/colors';
 import { AppConstants } from '@constants';
 import CardView from '../../components/cardview';
+import { sprintf } from '../../helper/utilites';
 
 class CardGame extends Component {
   constructor(props) {
@@ -16,6 +17,16 @@ class CardGame extends Component {
       prevCardId: -1
     };
   }
+  restartGame = () => {
+    this.setState({
+      resolvedCards: Array(AppConstants.CARD_PAIRS_VALUE * 2).fill(false),
+      shuffledCard: [],
+      clickCount: 1,
+      isBlocked: false,
+      prevSelectedCard: -1,
+      prevCardId: -1
+    });
+  };
 
   getRandomIntInclusive = (min, max) => {
     min = Math.ceil(min);
@@ -107,6 +118,36 @@ class CardGame extends Component {
     }
     return null;
   };
+
+  isGameOver = () => {
+    const { resolvedCards } = this.state;
+    if (resolvedCards && resolvedCards.length > 0) {
+      return resolvedCards.every(element => element !== false);
+    }
+    return false;
+  };
+
+  displayGameOverMsg = () => {
+    const msgBody = sprintf(AppConstants.MESSAGE, ['1']);
+    if (this.isGameOver()) {
+      const btnOptions = [
+        {
+          text: AppConstants.CTA_TITLE,
+          styles: 'cancel',
+          onPress: () => {
+            this.restartGame();
+            this.generateParisOfNum();
+          }
+        }
+      ];
+      Alert.alert(AppConstants.TITLE, msgBody, btnOptions, { cancelable: true });
+    }
+    return null;
+  };
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    this.displayGameOverMsg();
+  }
 
   render() {
     return <View style={styles.sectionContainer}>{this.renderGamePods()}</View>;
