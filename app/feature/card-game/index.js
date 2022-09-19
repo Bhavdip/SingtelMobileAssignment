@@ -8,8 +8,12 @@ class CardGame extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      flopCards: Array(16).fill(false),
-      shuffledCard: []
+      resolvedCards: Array(AppConstants.CARD_PAIRS_VALUE * 2).fill(false),
+      shuffledCard: [],
+      clickCount: 1,
+      isBlocked: false,
+      prevSelectedCard: -1,
+      prevCardId: -1
     };
   }
 
@@ -73,8 +77,20 @@ class CardGame extends Component {
   }
 
   renderGameCads = ({ item, index }) => {
+    const { resolvedCards, isBlocked } = this.state;
     // console.log(`element${JSON.stringify(item)}`);
-    return <CardView key={`cardId_${index}`} cardNumber={item} />;
+    return (
+      <CardView
+        key={`cardId_${index}`}
+        cardId={index}
+        cardNumber={item}
+        isBlocked={isBlocked}
+        isResolved={resolvedCards[index]}
+        onPressCard={cardData => {
+          this.handleClick(cardData);
+        }}
+      />
+    );
   };
 
   renderGamePods = () => {
@@ -85,6 +101,7 @@ class CardGame extends Component {
           numColumns={AppConstants.GAMEPAD_COLUMNS}
           data={shuffledCard}
           renderItem={this.renderGameCads}
+          extraData={this.state}
         />
       );
     }
@@ -94,6 +111,61 @@ class CardGame extends Component {
   render() {
     return <View style={styles.sectionContainer}>{this.renderGamePods()}</View>;
   }
+
+  handleClick = cardData => {
+    const { resolvedCards, shuffledCard, clickCount, isBlocked } = this.state;
+    const { cardId } = cardData;
+    const nwFlipCards = resolvedCards.slice();
+    if (nwFlipCards[cardId] === false) {
+      nwFlipCards[cardId] = !nwFlipCards[cardId];
+    }
+    if (clickCount === 1) {
+      console.log(
+        `[handleClick]<==${clickCount}-Click\t\t[CardId]=${cardData.cardId},[cardNumber]=${cardData.cardNumber}`
+      );
+      this.setState({
+        prevCardId: cardId,
+        prevSelectedCard: shuffledCard[cardId]
+      });
+      this.setState({ resolvedCards: nwFlipCards, clickCount: 2 }, () => {
+        console.log(`set=>=>[A.Click Count]=${this.state.clickCount}`);
+      });
+    } else if (clickCount === 2 && !isBlocked) {
+      console.log(
+        `[handleClick]<==${clickCount}-Click,\t\t[CardId]=${cardData.cardId},[cardNumber]=${cardData.cardNumber}`
+      );
+      this.setState({ resolvedCards: nwFlipCards, isBlocked: true }, () => {
+        console.log(`set=>=>[Blocked]=${this.state.isBlocked}`);
+      });
+      const { prevCardId } = this.state;
+      const previousCardNum = this.state.prevSelectedCard;
+      const newCardNum = this.state.shuffledCard[cardId];
+      this.isCardMatch(previousCardNum, newCardNum, prevCardId, cardId);
+    }
+  };
+
+  isCardMatch = (card1, card2, card1Id, card2Id) => {
+    console.log(
+      `isCardMatch:[card1]:${card1},[card2]=${card2},\t[card1Id]:${card1Id},[card2Id]=${card2Id}`
+    );
+    if (card1 === card2) {
+      const reviledCards = this.state.resolvedCards.slice();
+      reviledCards[card1Id] = true;
+      reviledCards[card2Id] = true;
+      console.log(`[CardGame]: Matched\n${JSON.stringify(reviledCards)}`);
+      this.setState({ resolvedCards: reviledCards, clickCount: 1, isBlocked: false }, () => {
+        console.log(`set=>=>[B.Click Count, Blocked ]=${this.state.clickCount}`);
+      });
+    } else {
+      const flipBack = this.state.resolvedCards.slice();
+      flipBack[card1Id] = false;
+      flipBack[card2Id] = false;
+      console.log(`[CardGame]: Not Matched\n${JSON.stringify(flipBack)}`);
+      this.setState({ resolvedCards: flipBack, clickCount: 1, isBlocked: false }, () => {
+        console.log(`set=>=>[B.Click Count, Blocked]=${this.state.clickCount}`);
+      });
+    }
+  };
 }
 
 const styles = StyleSheet.create({
