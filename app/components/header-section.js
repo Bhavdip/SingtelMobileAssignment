@@ -28,7 +28,7 @@ const HeaderSection = props => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    marginTop: 20,
+    marginTop: Spacing.x4,
     flexDirection: 'row',
     padding: Spacing.x18,
     alignItems: 'center'
