@@ -1,4 +1,4 @@
-import React, { Alert, FlatList, StyleSheet, View, Text } from 'react-native';
+import React, { Alert, FlatList, StyleSheet, View } from 'react-native';
 import { Component } from 'react';
 import { Colors } from '@theme/colors';
 import { AppConstants } from '@constants';
@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CardView from '../../components/cardview';
 import HeaderSection from '../../components/header-section';
-import { saveSteps, resetSteps } from '../../reudx/actions';
+import { saveSteps, resetSteps } from '../reudx/actions';
 
 class CardGame extends Component {
   constructor(props) {
