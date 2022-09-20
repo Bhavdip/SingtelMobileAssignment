@@ -13,9 +13,6 @@ import { saveSteps, reqForGenerateCards, restartGame, sendDataToMatch } from '..
 class CardGame extends Component {
   restartGame = () => {
     this.props.restartGame();
-    setTimeout(() => {
-      this.props.reqForGenerateCards();
-    }, 1000);
   };
 
   componentDidMount() {
@@ -70,12 +67,6 @@ class CardGame extends Component {
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.shuffledData.length === 0 && this.props.shuffledData.length > 0) {
-      console.log(
-        `componentDidUpdate\t\t PevProps.shuffledData[${prevProps.shuffledData.length}], Current.shuffledData[${this.props.shuffledData.length}]`
-      );
-      // this.setState({ shuffledCard: this.props.shuffledData });
-    }
     if (!prevProps.isGameOver && this.props.isGameOver) {
       this.displayGameOverMsg();
     }

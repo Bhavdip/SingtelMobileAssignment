@@ -30,16 +30,16 @@ export function getRandomIntInclusive(paramMin, paramMax) {
 }
 
 export function generateUniqueNumbs() {
-  const array1 = [];
+  const result = [];
   let currentIndex = 0;
   while (currentIndex < AppConstants.CARD_PAIRS_VALUE) {
     const item = getRandomIntInclusive(1, 100);
-    if (array1.indexOf(item) === -1) {
-      array1.push(item);
+    if (result.indexOf(item) === -1) {
+      result.push(item);
       currentIndex++;
     }
   }
-  return array1;
+  return result;
 }
 
 export function shuffleParis(numberPairs) {
@@ -47,11 +47,11 @@ export function shuffleParis(numberPairs) {
   for (let currentIndex = numberPairs.length - 1; currentIndex >= 0; currentIndex--) {
     if (currentIndex > 2) {
       randomIndex = getRandomIntInclusive(0, currentIndex - 2);
-      console.log(currentIndex, randomIndex, numberPairs[currentIndex], numberPairs[randomIndex]);
+      // console.log(currentIndex, randomIndex, numberPairs[currentIndex], numberPairs[randomIndex]);
       while (numberPairs[currentIndex] === numberPairs[randomIndex]) {
-        console.log(`inside while ${randomIndex}`);
+        // console.log(`inside while ${randomIndex}`);
         randomIndex = getRandomIntInclusive(0, currentIndex - 2);
-        console.log(`after while ${randomIndex}`);
+        // console.log(`after while ${randomIndex}`);
       }
       if (numberPairs[currentIndex] !== numberPairs[randomIndex]) {
         [numberPairs[currentIndex], numberPairs[randomIndex]] = [
