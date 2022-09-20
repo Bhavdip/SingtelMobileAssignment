@@ -1,5 +1,5 @@
 import createReducer from '@helper/createReducer';
-import { RESET_STEPS, SAVE_STEPS } from './types';
+import { RESET_STEPS, SAVE_GENERATED_CARDS, SAVE_STEPS } from './types';
 
 const initialState = {
   stepsCount: 0,
@@ -17,6 +17,12 @@ export const appReducer = createReducer(initialState, {
     return {
       ...state,
       stepsCount: 0
+    };
+  },
+  [SAVE_GENERATED_CARDS](state, action) {
+    return {
+      ...state,
+      shuffledData: [...action.payload.shuffledData]
     };
   }
 });

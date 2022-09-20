@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CardView from '../../components/cardview';
 import HeaderSection from '../../components/header-section';
-import { saveSteps, resetSteps } from '../reudx/actions';
+import { saveSteps, resetSteps, reqForGenerateCards } from '../reudx/actions';
 
 class CardGame extends Component {
   constructor(props) {
@@ -38,63 +38,8 @@ class CardGame extends Component {
     }, 1000);
   };
 
-  getRandomIntInclusive = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-    // The maximum is inclusive and the minimum is inclusive
-  };
-
-  shuffle = array => {
-    let randomIndex;
-    for (let currentIndex = array.length - 1; currentIndex >= 0; currentIndex--) {
-      if (currentIndex > 2) {
-        randomIndex = this.getRandomIntInclusive(0, currentIndex - 2);
-        console.log(currentIndex, randomIndex, array[currentIndex], array[randomIndex]);
-        while (array[currentIndex] === array[randomIndex]) {
-          console.log(`inside while ${randomIndex}`);
-          randomIndex = this.getRandomIntInclusive(0, currentIndex - 2);
-          console.log(`after while ${randomIndex}`);
-        }
-        if (array[currentIndex] !== array[randomIndex]) {
-          [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-        }
-      } else {
-        console.log(`inside else ${currentIndex}`);
-        randomIndex = this.getRandomIntInclusive(0, currentIndex);
-        console.log(currentIndex, randomIndex, array[currentIndex], array[randomIndex]);
-        if (array[currentIndex] !== array[randomIndex]) {
-          [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-        }
-      }
-    }
-    return array;
-  };
-
-  generateNumbers = () => {
-    const array1 = [];
-    let currentIndex = 0;
-    while (currentIndex < AppConstants.CARD_PAIRS_VALUE) {
-      const item = this.getRandomIntInclusive(1, 100);
-      if (array1.indexOf(item) === -1) {
-        array1.push(item);
-        currentIndex++;
-      }
-    }
-    return array1;
-  };
-
-  generateParisOfNum = () => {
-    const initialValue = [];
-    const listOfPairs = this.generateNumbers().reduce((previousValue, currentValue) => {
-      return previousValue.concat([currentValue, currentValue]);
-    }, initialValue);
-    const resultShuffled = this.shuffle(listOfPairs).slice();
-    this.setState({ shuffledCard: resultShuffled });
-  };
-
   componentDidMount() {
-    this.generateParisOfNum();
+    this.props.reqForGenerateCards();
   }
 
   renderGameCads = ({ item, index }) => {
@@ -157,6 +102,12 @@ class CardGame extends Component {
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.shuffledData.length === 0 && this.props.shuffledData.length > 0) {
+      console.log(
+        `componentDidUpdate\t\t PevProps.shuffledData[${prevProps.shuffledData.length}], Current.shuffledData[${this.props.shuffledData.length}]`
+      );
+      this.setState({ shuffledCard: this.props.shuffledData });
+    }
     this.displayGameOverMsg();
   }
 
@@ -238,21 +189,25 @@ const styles = StyleSheet.create({
 });
 
 CardGame.propTypes = {
+  shuffledData: PropTypes.array,
   stepsCount: PropTypes.number,
   saveStepsCount: PropTypes.func,
-  resetStepsCount: PropTypes.func
+  resetStepsCount: PropTypes.func,
+  reqForGenerateCards: PropTypes.func
 };
 
 function mapStateToProps(globalState) {
   return {
-    stepsCount: globalState.appReducer.stepsCount
+    stepsCount: globalState.appReducer.stepsCount,
+    shuffledData: globalState.appReducer.shuffledData
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     saveStepsCount: value => dispatch(saveSteps(value)),
-    resetStepsCount: () => dispatch(resetSteps())
+    resetStepsCount: () => dispatch(resetSteps()),
+    reqForGenerateCards: () => dispatch(reqForGenerateCards())
   };
 }
 
