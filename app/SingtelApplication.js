@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Platform, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import CardGame from './feature/card-game';
 
 class SingtelApplication extends Component {
@@ -14,8 +14,7 @@ class SingtelApplication extends Component {
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    flex: 1,
-    marginTop: Platform.OS === 'ios' ? 38 : 0
+    flex: 1
   }
 });
 export default SingtelApplication;

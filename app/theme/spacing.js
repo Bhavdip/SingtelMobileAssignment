@@ -9,6 +9,7 @@ const Spacing = {
   x28: scale(28),
   x24: scale(24),
   x20: scale(20),
+  x18: scale(18),
   x16: scale(16),
   x12: scale(12),
   x8: scale(8),
