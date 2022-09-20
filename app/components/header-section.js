@@ -11,15 +11,15 @@ const HeaderSection = props => {
         <TouchableOpacity
           activeOpacity={0.5}
           onPress={() => {
-            if (props.onPress) {
-              props.onPress();
+            if (props.onRestartPress) {
+              props.onRestartPress();
             }
           }}>
           <Text style={styles.restartTextStyle}>Restart</Text>
         </TouchableOpacity>
         <View style={styles.stepsContainer}>
           <Text style={styles.stepTitleStyle}>STEPS:</Text>
-          <Text style={styles.stepValueStyle}>12</Text>
+          <Text style={styles.stepValueStyle}>{props.stepsCount}</Text>
         </View>
       </View>
     </View>
@@ -56,7 +56,8 @@ const styles = StyleSheet.create({
 });
 
 HeaderSection.propTypes = {
-  onPress: PropTypes.func
+  stepsCount: PropTypes.number,
+  onRestartPress: PropTypes.func
 };
 
 export default HeaderSection;

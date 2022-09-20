@@ -4,8 +4,11 @@ import { Colors } from '@theme/colors';
 import { AppConstants } from '@constants';
 import { sprintf } from '@helper/utilites';
 import { Spacing } from '@theme';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import CardView from '../../components/cardview';
 import HeaderSection from '../../components/header-section';
+import { saveSteps, resetSteps } from '../../reudx/actions';
 
 class CardGame extends Component {
   constructor(props) {
@@ -21,6 +24,7 @@ class CardGame extends Component {
   }
 
   restartGame = () => {
+    this.props.resetStepsCount();
     this.setState({ resolvedCards: Array(AppConstants.CARD_PAIRS_VALUE * 2).fill(false) });
     setTimeout(() => {
       this.setState({
@@ -135,7 +139,8 @@ class CardGame extends Component {
   };
 
   displayGameOverMsg = () => {
-    const msgBody = sprintf(AppConstants.MESSAGE, ['1']);
+    const { stepsCount } = this.props;
+    const msgBody = sprintf(AppConstants.MESSAGE, [stepsCount]);
     if (this.isGameOver()) {
       const btnOptions = [
         {
@@ -155,15 +160,11 @@ class CardGame extends Component {
     this.displayGameOverMsg();
   }
 
-  onRestartGame = () => {
-    this.restartGame();
-    this.generateParisOfNum();
-  };
-
   render() {
+    const { stepsCount } = this.props;
     return (
       <View style={styles.sectionContainer}>
-        <HeaderSection onPress={() => this.onRestartGame()} />
+        <HeaderSection stepsCount={stepsCount} onRestartPress={() => this.restartGame()} />
         {this.renderGamePods()}
       </View>
     );
@@ -171,6 +172,10 @@ class CardGame extends Component {
 
   handleClick = cardData => {
     const { resolvedCards, shuffledCard, clickCount, isBlocked } = this.state;
+    const { stepsCount } = this.props;
+    // save steps count
+    this.props.saveStepsCount(stepsCount + 1);
+
     const { cardId } = cardData;
     const nwFlipCards = resolvedCards.slice();
     if (nwFlipCards[cardId] === false) {
@@ -232,4 +237,23 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CardGame;
+CardGame.propTypes = {
+  stepsCount: PropTypes.number,
+  saveStepsCount: PropTypes.func,
+  resetStepsCount: PropTypes.func
+};
+
+function mapStateToProps(globalState) {
+  return {
+    stepsCount: globalState.appReducer.stepsCount
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    saveStepsCount: value => dispatch(saveSteps(value)),
+    resetStepsCount: () => dispatch(resetSteps())
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardGame);
