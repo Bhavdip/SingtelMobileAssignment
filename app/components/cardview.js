@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { scale } from '@helper';
 import PropTypes from 'prop-types';
 import { Colors } from '@theme/colors';
@@ -50,26 +50,31 @@ const CardView = props => {
   };
 
   return (
-    <CardFlip
-      ref={cardFlip}
-      flipZoom={AppConstants.FLIP_ZOOM}
-      duration={AppConstants.FLIP_ANIM_DURATION}
-      flipDirection="y"
-      onFlipEnd={onCardFlipEnd}
-      style={styles.cardFlipContainer}>
-      <TouchableOpacity
-        activeOpacity={1}
-        style={[styles.flipCardStyle, styles.frontCardStyle]}
-        onPress={onCardPress}>
-        <Text style={styles.questionTextStyle}>{'\u003F'}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        activeOpacity={1}
-        style={[styles.flipCardStyle, styles.backCardStyle]}
-        onPress={onCardPress}>
-        <Text style={styles.cardNumberTextStyle}>{`${props.cardNumber}`}</Text>
-      </TouchableOpacity>
-    </CardFlip>
+    <View>
+      <CardFlip
+        testID="CardFlipComp"
+        ref={cardFlip}
+        flipZoom={AppConstants.FLIP_ZOOM}
+        duration={AppConstants.FLIP_ANIM_DURATION}
+        flipDirection="y"
+        onFlipEnd={onCardFlipEnd}
+        style={styles.cardFlipContainer}>
+        <TouchableOpacity
+          testID="FrontSide"
+          activeOpacity={1}
+          style={[styles.flipCardStyle, styles.frontCardStyle]}
+          onPress={onCardPress}>
+          <Text style={styles.questionTextStyle}>{'\u003F'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          testID="BackSide"
+          activeOpacity={1}
+          style={[styles.flipCardStyle, styles.backCardStyle]}
+          onPress={onCardPress}>
+          <Text style={styles.cardNumberTextStyle}>{`${props.cardNumber}`}</Text>
+        </TouchableOpacity>
+      </CardFlip>
+    </View>
   );
 };
 

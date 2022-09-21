@@ -1,14 +1,20 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import configureMockStore from 'redux-mock-store';
-import CardGamePage from '../../../../app/feature/card-game/index';
+import CardGame from '../../../../app/feature/card-game/index';
+import { defaultAppReducer } from '../../../../__mocks__/reducers/appreducer';
 
 const mockStore = configureMockStore();
-const globalStore = mockStore({});
+const globalStore = mockStore({
+  ...defaultAppReducer
+});
+const _navigator = { dispatch: jest.fn() };
 
 const setUpComponent = (store, props = {}) => {
-  return shallow(<CardGamePage store={store} {...props} />).find('CampaignsListScreen').dive();
+  return shallow(<CardGame store={store} {...props} />).find('CardGame').dive();
 };
+
+
 
 describe('Test Card Game', () => {
   let wrapperComponent = {};
