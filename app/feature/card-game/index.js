@@ -23,6 +23,7 @@ class CardGame extends Component {
     const { resolvedData, isBlocked } = this.props;
     return (
       <CardView
+        testID="CardView"
         key={`cardId_${index}`}
         cardId={index}
         cardNumber={item}
@@ -40,6 +41,7 @@ class CardGame extends Component {
     if (shuffledData && shuffledData.length > 0) {
       return (
         <FlatList
+          testID="CardsList"
           numColumns={AppConstants.GAMEPAD_COLUMNS}
           data={shuffledData}
           contentContainerStyle={{ marginHorizontal: Spacing.x8 }}
@@ -76,7 +78,11 @@ class CardGame extends Component {
     const { stepsCount } = this.props;
     return (
       <View style={styles.sectionContainer}>
-        <HeaderSection stepsCount={stepsCount} onRestartPress={() => this.restartGame()} />
+        <HeaderSection
+          testID="HeaderSectionComp"
+          stepsCount={stepsCount}
+          onRestartPress={() => this.restartGame()}
+        />
         {this.renderGamePods()}
       </View>
     );
