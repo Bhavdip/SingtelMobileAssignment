@@ -9,6 +9,7 @@ const HeaderSection = props => {
       <StatusbarPlaceholder />
       <View style={styles.headerContainer}>
         <TouchableOpacity
+          testID="RestartGame"
           activeOpacity={0.5}
           onPress={() => {
             if (props.onRestartPress) {
