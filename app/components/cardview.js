@@ -50,31 +50,29 @@ const CardView = props => {
   };
 
   return (
-    <View>
-      <CardFlip
-        testID="CardFlipComp"
-        ref={cardFlip}
-        flipZoom={AppConstants.FLIP_ZOOM}
-        duration={AppConstants.FLIP_ANIM_DURATION}
-        flipDirection="y"
-        onFlipEnd={onCardFlipEnd}
-        style={styles.cardFlipContainer}>
-        <TouchableOpacity
-          testID="FrontSide"
-          activeOpacity={1}
-          style={[styles.flipCardStyle, styles.frontCardStyle]}
-          onPress={onCardPress}>
-          <Text style={styles.questionTextStyle}>{'\u003F'}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          testID="BackSide"
-          activeOpacity={1}
-          style={[styles.flipCardStyle, styles.backCardStyle]}
-          onPress={onCardPress}>
-          <Text style={styles.cardNumberTextStyle}>{`${props.cardNumber}`}</Text>
-        </TouchableOpacity>
-      </CardFlip>
-    </View>
+    <CardFlip
+      testID="CardFlipComp"
+      ref={cardFlip}
+      flipZoom={AppConstants.FLIP_ZOOM}
+      duration={AppConstants.FLIP_ANIM_DURATION}
+      flipDirection="y"
+      onFlipEnd={onCardFlipEnd}
+      style={styles.cardFlipContainer}>
+      <TouchableOpacity
+        testID="FrontSide"
+        activeOpacity={1}
+        style={[styles.flipCardStyle, styles.frontCardStyle]}
+        onPress={onCardPress}>
+        <Text style={styles.questionTextStyle}>{'\u003F'}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        testID="BackSide"
+        activeOpacity={1}
+        style={[styles.flipCardStyle, styles.backCardStyle]}
+        onPress={onCardPress}>
+        <Text style={styles.cardNumberTextStyle}>{`${props.cardNumber}`}</Text>
+      </TouchableOpacity>
+    </CardFlip>
   );
 };
 

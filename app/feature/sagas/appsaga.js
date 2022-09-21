@@ -60,9 +60,9 @@ export function shuffleParis(numberPairs) {
         ];
       }
     } else {
-      console.log(`inside else ${currentIndex}`);
+      // console.log(`inside else ${currentIndex}`);
       randomIndex = getRandomIntInclusive(0, currentIndex);
-      console.log(currentIndex, randomIndex, numberPairs[currentIndex], numberPairs[randomIndex]);
+      // console.log(currentIndex, randomIndex, numberPairs[currentIndex], numberPairs[randomIndex]);
       if (numberPairs[currentIndex] !== numberPairs[randomIndex]) {
         [numberPairs[currentIndex], numberPairs[randomIndex]] = [
           numberPairs[randomIndex],
@@ -204,6 +204,7 @@ export function* isGameFinished(resolvedDataSet) {
     }
   }
 }
+
 export function* restartGame() {
   console.log('[AppSaga][restartGame]');
   yield put(restResolvedData());

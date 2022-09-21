@@ -12,4 +12,18 @@ const defaultAppReducer = {
     isGameOver: false
   }
 };
-export { defaultAppReducer };
+
+const appReducerWithMockData = {
+  appReducer: {
+    stepsCount: 32,
+    shuffledData: [34, 37, 66, 90, 71, 66, 34, 19, 90, 71, 37, 19],
+    resolvedData: [true, true, false, false, false, false, true, false, false, false, true, false],
+    clickCount: 1,
+    isBlocked: false,
+    prevSelectedCard: 34,
+    prevCardId: 6,
+    isGameOver: false
+  }
+};
+
+export { defaultAppReducer, appReducerWithMockData };
